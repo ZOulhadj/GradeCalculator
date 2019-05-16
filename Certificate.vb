@@ -4,6 +4,11 @@ Public Class Certificate
 
     Dim grades(19) As String
     Private Sub Certificate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        'Make sure the student's name is in propercase before being displayed on the certificate
+        person.name = StrConv(person.name, VbStrConv.ProperCase)
+
+        Dim c = 0, s = 0
         lblGrade1.Text = Grade.cmb1.Text
         lblGrade2.Text = Grade.cmb2.Text
         lblGrade3.Text = Grade.cmb3.Text
@@ -68,6 +73,18 @@ Public Class Certificate
             lblCredit105
         }
 
+        For Each creditLables As Label In arrayCreditLabels
+            If String.Equals(grades(c), "P") Then
+                creditLables.Text = 10
+            ElseIf String.Equals(grades(c), "M") Then
+                creditLables.Text = 10
+            ElseIf String.Equals(grades(c), "D") Then
+                creditLables.Text = 10
+            Else
+                creditLables.Text = ""
+            End If
+            c += 1
+        Next
 
         ' Iterate through all credit lables. If a grade cannot be found then the sore is given
         ' no value since the user has not enterd in a grade.
@@ -92,19 +109,6 @@ Public Class Certificate
             lblScore42,
             lblScore105
         }
-        Dim c = 0, s = 0
-        For Each creditLables As Label In arrayCreditLabels
-            If String.Equals(grades(c), "P") Then
-                creditLables.Text = 10
-            ElseIf String.Equals(grades(c), "M") Then
-                creditLables.Text = 10
-            ElseIf String.Equals(grades(c), "D") Then
-                creditLables.Text = 10
-            Else
-                creditLables.Text = ""
-            End If
-            c += 1
-        Next
 
         ' Iterate through all score labels and if grade matches then assign score
         ' P -> 70 Points, M -> 80 Points, D -> 90 Points.
@@ -126,6 +130,33 @@ Public Class Certificate
             End If
 
         Next
+
+        ' Checks if the student has reached the minimum required score for a specific course
+        If person.course.Equals("BTEC Level 3 SD") Then
+            If totalScore < 420 Then
+                Me.Close()
+                MessageBox.Show("Error! Cannot display certifcate due to minium score not being reached for BTEC Level 3 SD")
+                GradeCalculator.Show()
+            End If
+        ElseIf person.course.Equals("BTEC Level 3 90 D") Then
+            If totalScore < 630 Then
+                Me.Close()
+                MessageBox.Show("Error! Cannot display certifcate due to minium score not being reached for BTEC Level 3 90 D")
+                GradeCalculator.Show()
+            End If
+        ElseIf person.course.Equals("BTEC Level 3 D") Then
+            If totalScore < 840 Then
+                Me.Close()
+                MessageBox.Show("Error! Cannot display certifcate due to minium score not being reached for BTEC Level 3 D")
+                GradeCalculator.Show()
+            End If
+        ElseIf person.course.Equals("BTEC Level 3 ED") Then
+            If totalScore < 1260 Then
+                Me.Close()
+                MessageBox.Show("Error! Cannot display certifcate due to minium score not being reached for BTEC Level 3 ED")
+                GradeCalculator.Show()
+            End If
+        End If
 
         ' Display the student information on the certificate
         lblStudentInformation.Text = person.name & " (" & "KC" & person.id & ") " & person.dob

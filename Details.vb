@@ -2,6 +2,8 @@
 
 Public Class Details
 
+    ' This function checks all input fields to see if they are empty or not.
+    ' If empty then the done button will be disabled else it will be enabled.
     Private Sub Validate()
         If String.IsNullOrEmpty(txtStudentName.Text) Or
             String.IsNullOrEmpty(txtStudentID.Text) Or
@@ -50,6 +52,9 @@ Public Class Details
     End Sub
 
     Private Sub TxtStudentID_TextChanged(sender As Object, e As EventArgs) Handles txtStudentID.TextChanged
+        ' When the text within the ID field changes then check if Visual Basic can parse it as an integer.
+        ' If it does then it indicates that it value is an integer and then continue as normal
+        ' On the other hand, if it does not then reset the field box.
         If Not Integer.TryParse(txtStudentID.Text, person.id) Then
             txtStudentID.Text = ""
         End If

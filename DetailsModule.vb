@@ -8,6 +8,7 @@
         Dim grades() As String ' Stores the student's grades
     End Structure
 
+    ' Create an instance of the Student structure in a variable called person
     Public person As Student
 
 End Module

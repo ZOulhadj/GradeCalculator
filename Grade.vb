@@ -1,6 +1,9 @@
 ﻿Public Class Grade
     Dim btecLevel3SD As Integer = 6, btecLevel390D = 9, btecLevel3D = 12, btecLevel3ED = 19
     Dim grades(19) As ComboBox
+
+    ' The purpose of the Validate function is to check what course the user has selected
+    ' Depending on the course, a certain number of combo boxes will be enabled.
     Private Sub Validate()
         If person.course.Equals("BTEC Level 3 SD") Then
             For i = 0 To btecLevel3SD - 1
@@ -80,6 +83,7 @@
         End If
     End Sub
 
+    ' If any of the combo boxes value changes then run the validate function
     Private Sub cmb1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb1.SelectedIndexChanged,
         cmb2.SelectedIndexChanged,
         cmb3.SelectedIndexChanged,
